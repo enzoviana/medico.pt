@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nouveau Rendez-vous</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header img {
+            width: 100px;
+            margin-bottom: 10px;
+        }
+        .confirmation {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .confirmation img {
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 10px;
+        }
+        .details {
+            margin-bottom: 20px;
+        }
+        .details h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .details .card {
+            background-color: #f8f8f8;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+            padding: 10px 0;
+            border-top: 1px solid #ddd;
+            margin-top: 20px;
+        }
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+         .reminder {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+  <img src="https://upload.wikimedia.org/wikipedia/fr/thumb/7/7f/Logo-doctolib.svg/2048px-Logo-doctolib.svg.png" alt="Logo" title="Logo" />
+        </div>
+        <div class="confirmation">
+            <img src="https://img.freepik.com/free-photo/enthusiastic-woman-doctor-smiling-pointing-fingers-camera-congratulating-inviting-patients-cli_1258-88101.jpg?t=st=1717152310~exp=1717155910~hmac=df3e87c440cb364764b93a4cf257372fa82acabae7c04a85bd1bfcee9a5dedda&w=2000" alt="Confirmation Image" title="Confirmation Image" />
+            <p>Un nouveau rendez-vous a été pris</p>
+        </div>
+        <div class="details">
+            <h2>Détails du Nouveau Rendez-vous</h2>
+            <div class="card">
+                <h3>Date et Heure</h3>
+                <p>{{debut}} - {{fin}}</p>
+            </div>
+            <div class="card">
+                <h3>Patient</h3>
+                <p>{{patientName}}</p>
+            </div>
+            <div class="card">
+                <h3>Lieu</h3>
+                <p>{{lieu}}</p>
+            </div>
+            <div class="card">
+                <h3>Service</h3>
+                <p>{{description}}</p>
+            </div>
+        </div>
+         <div class="reminder">
+            <p>N'oubliez pas de vérifier votre planning pour les prochains rendez-vous.</p>
+        </div>
+        <div class="footer">
+            <p>All rights reserved</p>
+        </div>
+    </div>
+</body>
+</html>
