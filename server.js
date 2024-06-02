@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // URL de connexion à MongoDB en local
-const uri = ' "mongodb+srv://medicoEnzo:u1ZYLpVlqCyNwDGz@medico.u5xpjbz.mongodb.net/?retryWrites=true&w=majority&appName=Medico"';
+const uri = "mongodb+srv://medicoEnzo:u1ZYLpVlqCyNwDGz@medico.u5xpjbz.mongodb.net/?retryWrites=true&w=majority&appName=Medico";
 
 const secretKey = '4a4551fa5e6997a82e57cabce96a2ebde3297f3228842f23a1efe62ed8c5ee7a4ebc45a1cd69e1c7819dd35bdab5c7411fa7dc2e73f9fa9b434462d47f30659b';
 
