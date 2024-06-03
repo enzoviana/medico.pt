@@ -23,6 +23,7 @@ const corsOptions = {
     allowedHeaders: ['Content-Type', 'Authorization'],
   };
 
+  app.use(cors(corsOptions));
 // URL de connexion à MongoDB en local
 const uri = "mongodb+srv://medicoEnzo:u1ZYLpVlqCyNwDGz@medico.u5xpjbz.mongodb.net/?retryWrites=true&w=majority&appName=Medico";
 
