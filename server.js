@@ -15,8 +15,13 @@ const fs = require('fs');
 const app = express();
 const port = process.env.PORT || 3000;
 
+
 app.use(bodyParser.json());
-app.use(cors());
+const corsOptions = {
+    origin: 'https://datafuse-test.site/', // Remplacez par le domaine de votre frontend
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  };
 
 // URL de connexion à MongoDB en local
 const uri = "mongodb+srv://medicoEnzo:u1ZYLpVlqCyNwDGz@medico.u5xpjbz.mongodb.net/?retryWrites=true&w=majority&appName=Medico";
