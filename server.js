@@ -18,7 +18,10 @@ const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 
-  app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:8080'
+  }));
+  
 // URL de connexion à MongoDB en local
 const uri = "mongodb+srv://medicoEnzo:u1ZYLpVlqCyNwDGz@medico.u5xpjbz.mongodb.net/?retryWrites=true&w=majority&appName=Medico";
 
