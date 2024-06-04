@@ -1064,9 +1064,10 @@ function generateAvailableTimeslotsForDate(horaires, bookedEvents, specificDate,
     return availableTimeslots;
 }
 
-app.get('/.well-known/pki-validation/C2D64616FA133B0877524AB2B07094D7.txt'), (req , res ) => {
-    res.sendFile('./C2D64616FA133B0877524AB2B07094D7.txt')
-}
+app.get('/.well-known/pki-validation/C2D64616FA133B0877524AB2B07094D7.txt', (req, res) => {
+    res.sendFile(path.join(__dirname, 'C2D64616FA133B0877524AB2B07094D7.txt'));
+});
+
 
 // Démarrer le serveur
 app.listen(port, '0.0.0.0', () => {
