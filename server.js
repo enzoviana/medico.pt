@@ -18,10 +18,7 @@ const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 
-app.use(cors({
-    origin: 'http://localhost:8080'
-  }));
-  
+  app.use(cors());
 // URL de connexion à MongoDB en local
 const uri = "mongodb+srv://medicoEnzo:u1ZYLpVlqCyNwDGz@medico.u5xpjbz.mongodb.net/?retryWrites=true&w=majority&appName=Medico";
 
@@ -1065,6 +1062,10 @@ function generateAvailableTimeslotsForDate(horaires, bookedEvents, specificDate,
     }
 
     return availableTimeslots;
+}
+
+app.get('/.well-known/pki-validation/C2D64616FA133B0877524AB2B07094D7.txt'), (req , res ) => {
+    res.sendFile('./C2D64616FA133B0877524AB2B07094D7.txt')
 }
 
 // Démarrer le serveur
