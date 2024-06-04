@@ -16,8 +16,8 @@ const https = require('https')
 const app = express();
 const port = process.env.PORT || 3000;
 
-const key = fs.readFileSync('private.key');
-const cert = fs.readFileSync('certificate.crt');
+const key = fs.readFileSync('./private.key');
+const cert = fs.readFileSync('./certificate.crt');
 
 const cred = {
     key,
