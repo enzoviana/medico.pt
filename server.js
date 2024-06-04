@@ -10,11 +10,19 @@ const nodemailer = require('nodemailer');
 const hbs = require('nodemailer-express-handlebars');
 const path = require('path');
 const fs = require('fs');
+const https = require('https')
 
 
 const app = express();
 const port = process.env.PORT || 3000;
 
+const key = fs.readFileSync('private.key');
+const cert = fs.readFileSync('certificate.crt');
+
+const cred = {
+    key,
+    cert
+}
 
 app.use(bodyParser.json());
 
@@ -1073,3 +1081,6 @@ app.get('/.well-known/pki-validation/C2D64616FA133B0877524AB2B07094D7.txt', (req
 app.listen(port, '0.0.0.0', () => {
     console.log(`Server test final listening at http://0.0.0.0:${port}`);
 });
+
+const httpsServer = https.createServer(cred, app)
+httpsServer.listen(8433)
