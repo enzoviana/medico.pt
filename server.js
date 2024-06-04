@@ -1071,5 +1071,5 @@ app.get('/.well-known/pki-validation/C2D64616FA133B0877524AB2B07094D7.txt', (req
 
 // Démarrer le serveur
 app.listen(port, '0.0.0.0', () => {
-    console.log(`Server listening at http://0.0.0.0:${port}`);
+    console.log(`Server test final listening at http://0.0.0.0:${port}`);
 });
