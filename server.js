@@ -1065,7 +1065,7 @@ function generateAvailableTimeslotsForDate(horaires, bookedEvents, specificDate,
 }
 
 app.get('/.well-known/pki-validation/C2D64616FA133B0877524AB2B07094D7.txt', (req, res) => {
-    res.sendFile(path.join(__dirname, 'C2D64616FA133B0877524AB2B07094D7.txt'));
+    res.sendFile(path.join(__dirname, './.well-known/pki-validation/C2D64616FA133B0877524AB2B07094D7.txt'));
 });
 
 
