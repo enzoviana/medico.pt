@@ -26,7 +26,9 @@ const cred = {
 
 app.use(bodyParser.json());
 
-  app.use(cors());
+app.use(cors({
+    origin: 'https://datafuse-test.site',
+}));
 // URL de connexion à MongoDB en local
 const uri = "mongodb+srv://medicoEnzo:u1ZYLpVlqCyNwDGz@medico.u5xpjbz.mongodb.net/?retryWrites=true&w=majority&appName=Medico";
 
