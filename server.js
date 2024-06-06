@@ -958,8 +958,16 @@ app.post('/reset-password', async (req, res) => {
         const db = req.db;
         const { email } = req.body;
 
-        // Vérification si l'utilisateur existe
-        const existingUser = await db.collection('patient').findOne({ email });
+        // Recherche dans la collection 'patient'
+        let existingUser = await db.collection('patient').findOne({ email });
+        let collectionName = 'patient';
+
+        // Si l'utilisateur n'est pas trouvé dans 'patient', rechercher dans 'docteur'
+        if (!existingUser) {
+            existingUser = await db.collection('docteur').findOne({ email });
+            collectionName = 'docteur';
+        }
+
         if (!existingUser) {
             return res.status(404).json({ message: 'Utilisateur non trouvé.' });
         }
@@ -968,10 +976,12 @@ app.post('/reset-password', async (req, res) => {
         const token = crypto.randomBytes(20).toString('hex');
 
         // Mise à jour du jeton de réinitialisation dans la base de données
-        await db.collection('patient').updateOne({ email }, { $set: { resetPasswordToken: token, resetPasswordExpires: Date.now() + 3600000 } });
+        await db.collection(collectionName).updateOne(
+            { email },
+            { $set: { resetPasswordToken: token, resetPasswordExpires: Date.now() + 3600000 } }
+        );
 
-
-        const resetLink = `http://localhost:8080/reset-password/${token}`; // Définissez correctement votre lien de réinitialisation
+        const resetLink = `https://datafuse-test.site/reset-password/${token}`; // Définissez correctement votre lien de réinitialisation
 
         const mailOptions = {
             from: 'votre@email.com',
@@ -982,7 +992,7 @@ app.post('/reset-password', async (req, res) => {
                 resetLink: resetLink
             }
         };
-        
+
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
                 console.error('Erreur lors de l\'envoi de l\'e-mail :', error);
