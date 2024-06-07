@@ -206,6 +206,8 @@ app.post('/signup/doctor', async (req, res) => {
             return res.status(400).json({ message: 'Ce médecin existe déjà.' });
         }
 
+        console.log('mot de passe : ', password)
+
         // Hachage du mot de passe
         const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -275,11 +277,12 @@ const newDoctor = {
 
 
 
+
         // Insertion du nouveau médecin dans la collection 'doctor'
         await db.collection('doctor').insertOne(newDoctor);
 
         // Réponse réussie
-        res.status(201).json({ message: 'Médecin créé avec succès.' });
+        res.status(201).json({ message: 'Médecin créé avec succès.'  });
     } catch (error) {
         console.error('Erreur lors de la création du médecin :', error);
         res.status(500).json({ message: 'Erreur lors de la création du médecin.' });
