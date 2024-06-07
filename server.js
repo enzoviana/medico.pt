@@ -354,7 +354,7 @@ const geolib = require('geolib');
 app.get('/doctors', async (req, res) => {
     try {
         const db = req.db;
-        let query = { }; // Ajout du filtre pour la disponibilité à true
+        let query = {}; // Retirer la condition de disponibilité
 
         // Filtrer par spécialité
         if (req.query.specialite) {
@@ -374,22 +374,34 @@ app.get('/doctors', async (req, res) => {
             query.service = serviceRegex;
         }
 
+        console.log('Query:', query);
+
         // Filtrer par géolocalisation dans un rayon spécifié
         if (req.query.latitude && req.query.longitude && req.query.distance) {
             const latitude = parseFloat(req.query.latitude);
             const longitude = parseFloat(req.query.longitude);
             const distance = parseInt(req.query.distance); // distance en mètres
-            const doctors = await db.collection('doctor').find({ availability: true }).toArray();
+            console.log('User location:', { latitude, longitude });
+            console.log('Search radius (meters):', distance);
+
+            const doctors = await db.collection('doctor').find(query).toArray();
+            console.log('Doctors before filtering by location:', doctors);
+
             const filteredDoctors = doctors.filter(doctor => {
-                return geolib.isPointWithinRadius(
+                const withinRadius = geolib.isPointWithinRadius(
                     { latitude: doctor.latitude, longitude: doctor.longitude },
                     { latitude, longitude },
                     distance
                 );
+                console.log(`Doctor ${doctor.name} within radius:`, withinRadius);
+                return withinRadius;
             });
+
+            console.log('Filtered doctors by location:', filteredDoctors);
             res.status(200).json(filteredDoctors);
         } else {
             const doctors = await db.collection('doctor').find(query).toArray();
+            console.log('Doctors:', doctors);
             res.status(200).json(doctors);
         }
     } catch (error) {
