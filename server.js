@@ -354,7 +354,7 @@ const geolib = require('geolib');
 app.get('/doctors', async (req, res) => {
     try {
         const db = req.db;
-        let query = { availability: true }; // Ajout du filtre pour la disponibilité à true
+        let query = { }; // Ajout du filtre pour la disponibilité à true
 
         // Filtrer par spécialité
         if (req.query.specialite) {
