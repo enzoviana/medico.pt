@@ -121,26 +121,43 @@ app.post('/login', async (req, res) => {
         const { email, password } = req.body;
 
         // Recherche de l'utilisateur dans la collection 'patient'
-        const user = await db.collection('patient').findOne({ email });
-        if (!user) {
-            return res.status(404).json({ message: 'Utilisateur non trouvé.' });
+        const patientUser = await db.collection('patient').findOne({ email });
+        
+        if (patientUser) {
+            // Vérification du mot de passe pour patient
+            const passwordMatch = await bcrypt.compare(password, patientUser.password);
+            if (!passwordMatch) {
+                return res.status(401).json({ message: 'Mot de passe incorrect.' });
+            }
+
+            // Authentification réussie pour patient, génération du token JWT
+            const token = generateToken(patientUser._id);
+            const nom = patientUser.nom;
+            const prenom = patientUser.prenom;
+            const UserTYPE = patientUser.UserTYPE;
+            const patientId = patientUser._id;
+
+            return res.status(200).json({ token, nom, prenom, UserTYPE, patientId });
+        } else {
+            // Recherche de l'utilisateur dans la collection 'doctor'
+            const doctorUser = await db.collection('doctor').findOne({ email });
+
+            if (!doctorUser) {
+                return res.status(404).json({ message: 'Utilisateur non trouvé.' });
+            }
+
+            // Vérification du mot de passe pour doctor
+            const passwordMatch = await bcrypt.compare(password, doctorUser.password);
+            if (!passwordMatch) {
+                return res.status(401).json({ message: 'Mot de passe incorrect.' });
+            }
+
+            // Authentification réussie pour doctor, génération du token JWT
+            const token = generateToken(doctorUser._id);
+            const id = doctorUser._id;
+
+            return res.status(200).json({ token, id });
         }
-
-        // Vérification du mot de passe
-        const passwordMatch = await bcrypt.compare(password, user.password);
-        if (!passwordMatch) {
-            return res.status(401).json({ message: 'Mot de passe incorrect.' });
-        }
-
-        // Authentification réussie, génération du token JWT
-        const token = generateToken(user._id);
-        const nom = user.nom;
-        const prenom = user.prenom;
-        const UserTYPE = user.UserTYPE;
-        const patientId = user._id
-
-        // Retourner le token JWT
-        res.status(200).json({ token , nom , prenom , UserTYPE, patientId});
     } catch (error) {
         console.error('Erreur lors de la tentative de connexion :', error);
         res.status(500).json({ message: 'Erreur lors de la tentative de connexion.' });
